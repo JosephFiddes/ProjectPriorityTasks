@@ -1,3 +1,8 @@
+# Don't add tasks to version control.
+priorityTasks.csv
+
+##################### Regular Python Stuff ##########################
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

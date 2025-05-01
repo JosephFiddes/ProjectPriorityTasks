@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from QNewItem import QNewItem
 import sys
  
+TASKLIST_FILENAME = "priorityTasks.csv"
+
 class Window(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -13,7 +15,7 @@ class Window(QMainWindow):
 		# Set the central widget of the Window. Widget will expand
 		# to take up all the space in the window by default.
 		originLayout = QVBoxLayout()
-		originLayout.addWidget(QNewItem())
+		originLayout.addWidget(QNewItem(TASKLIST_FILENAME))
 		originWidget = QWidget()
 		originWidget.setLayout(originLayout)
 		self.setCentralWidget(originWidget)
