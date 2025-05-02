@@ -3,10 +3,14 @@ from PyQt5.QtWidgets import *
 from datetime import datetime
 
 class QNewItem(QWidget):
-	def __init__(self, taskList):
+	def __init__(self, window):
 		super().__init__()
 
-		self.taskList = taskList
+		# Reference to window that new item interface exists upon.
+		# Note: I don't really love this, as the two objects are coupled
+		# in a not super object-oriented hierarchical way, but it be
+		# like that sometimes
+		self.window = window
 
 		# Subwidgets
 		self.titleEdit = QLineEdit()
@@ -53,5 +57,5 @@ class QNewItem(QWidget):
 							.strftime(DTFORMATSTRING_datetime))], 
 			"INITIAL_PRIORITY": [str(self.priorityEdit.value())] 
 		}
-		self.taskList.appendTask(newTask)
-		self.taskList.reset()
+
+		self.window.submitTask(newTask)

@@ -22,4 +22,9 @@ class TaskList():
 		print(self.tasks)
 
 	def appendTask(self, task):
-		self.tasks = pd.concat([self.tasks, pd.DataFrame(task)], ignore_index=True)
+		self.tasks = pd.concat([self.tasks, pd.DataFrame(task)], 
+			ignore_index=True)
+
+	def deleteTask(self, taskIndex):
+		print(taskIndex)
+		self.tasks.drop([taskIndex], axis='index', inplace=True)
