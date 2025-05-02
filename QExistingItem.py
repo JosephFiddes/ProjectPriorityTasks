@@ -16,7 +16,7 @@ class QExistingItem(QWidget):
 		self.title = QLabel(str(task["TITLE"]))
 		self.dueDate = QLabel("Due: " + str(task["DATETIME_DUE"]))
 		self.estHours = QLabel(str(task["ESTIMATED_HOURS"]) + " hours")
-		self.priority = QLabel("Priority: " + str(task["INITIAL_PRIORITY"]))
+		self.priority = QLabel("Priority: " + str(task["CUR_PRIORITY"]))
 		self.deleteButton = QPushButton("Delete")
 
 		self.deleteButton.clicked.connect(self.delete)

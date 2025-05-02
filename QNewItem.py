@@ -48,14 +48,21 @@ class QNewItem(QWidget):
 		DTFORMATSTRING_QDateTime = "yyyy-MM-dd hh:mm"
 		DTFORMATSTRING_datetime = "%Y-%m-%d %H:%M"
 
+		hasDueDate = "N"
+		if self.hasDueDateEdit.isChecked():
+			hasDueDate = "Y"
+
+		priority = str(self.priorityEdit.value())
 		newTask = {
 			"TITLE": [str(self.titleEdit.text())],
+			"HAS_DUE_DATE": [hasDueDate],
 			"DATETIME_DUE": [str(self.dueDateEdit.dateTime()
 							.toString(DTFORMATSTRING_QDateTime))],
 			"ESTIMATED_HOURS": [str(self.hoursEdit.value())],
 			"DATETIME_SUBMITTED": [str(datetime.now()
 							.strftime(DTFORMATSTRING_datetime))], 
-			"INITIAL_PRIORITY": [str(self.priorityEdit.value())] 
+			"INITIAL_PRIORITY": [priority],
+			"CUR_PRIORITY": [priority] 
 		}
 
 		self.window.submitTask(newTask)
