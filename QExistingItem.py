@@ -24,8 +24,12 @@ class QExistingItem(QWidget):
 		# Define Layout
 		layout = QVBoxLayout()
 		layout.addWidget(self.title)
-		layout.addWidget(self.dueDate)
-		layout.addWidget(self.estHours)
+
+		# Only show due date if item has due date
+		if (str(task["HAS_DUE_DATE"]) == "Y"):
+			layout.addWidget(self.dueDate)
+			layout.addWidget(self.estHours)
+
 		layout.addWidget(self.priority)
 		layout.addWidget(self.deleteButton)
 
