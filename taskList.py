@@ -36,7 +36,7 @@ class TaskList():
 			lambda task : self.calculatePriority(task, now), 
 			axis=1)
 
-		self.tasks.sort_values(by="CUR_PRIORITY")
+		self.tasks.sort_values(by="CUR_PRIORITY", ascending=False, inplace=True)
 
 	@staticmethod
 	def calculatePriority(task, now):
