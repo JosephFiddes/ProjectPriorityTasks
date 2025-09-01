@@ -19,8 +19,10 @@ class QNewItem(QWidget):
 		self.hoursEdit = QSpinBox()
 		self.priorityEdit = QSpinBox()
 		self.submitButton = QPushButton("Submit")
+		self.refreshButton = QPushButton("Refresh")
 
 		self.submitButton.clicked.connect(self.submit)
+		self.refreshButton.clicked.connect(self.refresh)
 
 		# Define Layout
 		layout = QVBoxLayout()
@@ -41,6 +43,7 @@ class QNewItem(QWidget):
 		layout.addLayout(dateAndPriorityLayout)
 
 		layout.addWidget(self.submitButton)
+		layout.addWidget(self.refreshButton)
 
 		self.setLayout(layout)
 
@@ -66,3 +69,6 @@ class QNewItem(QWidget):
 		}
 
 		self.window.submitTask(newTask)
+
+	def refresh(self):
+		self.window.refreshTasks()
