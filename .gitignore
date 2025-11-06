@@ -1,6 +1,9 @@
 # Don't add tasks to version control.
 priorityTasks.csv
 
+# Binaries
+*.bat
+
 ##################### Regular Python Stuff ##########################
 
 # Byte-compiled / optimized / DLL files
