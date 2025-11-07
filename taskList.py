@@ -11,6 +11,10 @@ class TaskList():
 		try:
 			self.tasks = pd.read_csv(self.filename)
 		except FileNotFoundError:
+			print("Couldn't find " + self.filename)
+			print("If " + self.filename + " exists, then the program may overwrite it.")
+			print("Be sure to back up " + self.filename + " to a new location.")
+			input("Press ENTER to continue.")
 			self.tasks = pd.DataFrame(columns=["TITLE"])
 
 	def writeToFile(self):

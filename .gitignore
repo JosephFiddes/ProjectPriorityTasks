@@ -1,5 +1,5 @@
 # Don't add tasks to version control.
-priorityTasks.csv
+*.csv
 
 # Binaries
 *.bat
