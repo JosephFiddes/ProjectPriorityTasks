@@ -57,4 +57,4 @@ class QExistingItem(QWidget):
 		self.window.deleteTask(self.index)
 
 	def complete(self):
-		self.delete()
+		self.window.completeTask(self.index)

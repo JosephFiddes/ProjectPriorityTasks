@@ -94,3 +94,5 @@ class PeriodicTaskEditor(QMainWindow):
 		}
 
 		self.parent().submitTask(newTask)
+
+		self.close()

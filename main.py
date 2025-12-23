@@ -60,6 +60,10 @@ class Window(QMainWindow):
 		self.taskList.deleteTask(taskIndex)
 		self.refreshTasks()
 
+	def completeTask(self, taskIndex):
+		self.taskList.completeTask(taskIndex)
+		self.refreshTasks()
+
 ###########################################################################
 
 TASKLIST_FILENAME = "priorityTasks.csv"
