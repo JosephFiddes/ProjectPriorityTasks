@@ -13,27 +13,48 @@ class QExistingItem(QWidget):
 		self.index = index
 
 		# Subwidgets
-		self.title = QLabel(str(task["TITLE"]))
-		self.dueDate = QLabel("Due: " + str(task["DATETIME_DUE"]))
-		self.estHours = QLabel(str(task["ESTIMATED_HOURS"]) + " hours")
-		self.priority = QLabel("Priority: " + str(task["CUR_PRIORITY"]))
-		self.deleteButton = QPushButton("Delete")
-
-		self.deleteButton.clicked.connect(self.delete)
-
-		# Define Layout
 		layout = QVBoxLayout()
+
+		is_periodic = str(task["IS_PERIODIC"]) == "Y"
+
+		# Title
+		title_text = str(task["TITLE"])
+		if is_periodic: title_text = "periodic: " + title_text 
+		self.title = QLabel(title_text)
 		layout.addWidget(self.title)
 
-		# Only show due date if item has due date
-		if (str(task["HAS_DUE_DATE"]) == "Y"):
+		# Only show due date and estimated time to complete if item has due date
+		if (str(task["HAS_DUE_DATE"]) == "Y" and not is_periodic):
+			# Due date
+			self.dueDate = QLabel("Due: " + str(task["DATETIME_DUE"]))
 			layout.addWidget(self.dueDate)
+
+			# Estimated time to complete
+			self.estHours = QLabel(str(task["ESTIMATED_HOURS"]) + " hours")
 			layout.addWidget(self.estHours)
 
-		layout.addWidget(self.priority)
-		layout.addWidget(self.deleteButton)
+		# Priority
+		if not is_periodic:
+			self.priority = QLabel("Priority: " + str(task["CUR_PRIORITY"]))
+			layout.addWidget(self.priority)
+
+		buttonsLayout = QHBoxLayout()
+		# Complete button (only if periodic)
+		if is_periodic:
+			self.completeButton = QPushButton("Complete")
+			self.completeButton.clicked.connect(self.complete)
+			buttonsLayout.addWidget(self.completeButton)
+
+		# Delete button
+		self.deleteButton = QPushButton("Delete")
+		self.deleteButton.clicked.connect(self.delete)
+		buttonsLayout.addWidget(self.deleteButton)
+		layout.addLayout(buttonsLayout)
 
 		self.setLayout(layout)
 
 	def delete(self):
 		self.window.deleteTask(self.index)
+
+	def complete(self):
+		self.delete()

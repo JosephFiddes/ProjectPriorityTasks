@@ -33,8 +33,9 @@ class Window(QMainWindow):
 		self.removeWidgetsFromLayout(self.existingTasksLayout)
 
 		for index, task in taskList.tasks.iterrows():
-			self.existingTasksLayout.addWidget(
-				QExistingItem(self, index, task))
+			if task["IS_PERIODIC"] != "Y" or self.taskList.isDue(task):
+				self.existingTasksLayout.addWidget(
+					QExistingItem(self, index, task))
 
 	def openPeriodicTaskEditor(self):
 		self.periodicTaskEditorWindow = PeriodicTaskEditor(self)

@@ -33,11 +33,11 @@ class PeriodicTaskEditor(QMainWindow):
 		layout.addLayout(startNowLayout)
 
 		# or else start on (some date/time)
-		orElseStartOnLayout = QHBoxLayout()
-		orElseStartOnLayout.addWidget(QLabel("or else start on:"))
-		self.orElseStartOnEdit = QDateTimeEdit()
-		orElseStartOnLayout.addWidget(self.orElseStartOnEdit)
-		layout.addLayout(orElseStartOnLayout)
+		dueDateLayout = QHBoxLayout()
+		dueDateLayout.addWidget(QLabel("or else start on:"))
+		self.dueDateEdit = QDateTimeEdit()
+		dueDateLayout.addWidget(self.dueDateEdit)
+		layout.addLayout(dueDateLayout)
 
 		# Period (days)
 		periodLayout = QHBoxLayout()
@@ -75,11 +75,11 @@ class PeriodicTaskEditor(QMainWindow):
 
 		nowStr = str(now.strftime(DTFORMATSTRING_datetime))
 
-		priority = str(0)
+		priority = str(float('inf'))
 
 		period = str(max(1, self.periodEdit.value()))
 		resetOn = str(self.resetEdit.currentText())
-		
+
 		newTask = {
 			"TITLE": [str(self.titleEdit.text())],
 			"IS_PERIODIC": ["Y"],

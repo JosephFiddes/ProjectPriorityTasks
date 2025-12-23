@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta
+from DTFormatStrings import *
 
 class TaskList():
 	def __init__(self, filename):
@@ -34,6 +35,13 @@ class TaskList():
 	def deleteTask(self, taskIndex):
 		self.tasks.drop([taskIndex], axis='index', inplace=True)
 
+
+	def isDue(self, task):
+		dueDateTime = datetime.strptime(task["DATETIME_DUE"], 
+			DTFORMATSTRING_datetime)
+		now = datetime.now()
+		return (dueDateTime - now).days < 0
+
 	def sort(self):
 		now = datetime.now()
 		self.tasks["CUR_PRIORITY"] = self.tasks.apply(
@@ -47,8 +55,6 @@ class TaskList():
 		if "HAS_DUE_DATE" not in task.keys() or task["HAS_DUE_DATE"] != "Y":
 			return task["INITIAL_PRIORITY"]
 
-		# Get required datetimes and deltas in the correct format		
-		DTFORMATSTRING_datetime = "%Y-%m-%d %H:%M"
 		dueDateTime = datetime.strptime(task["DATETIME_DUE"], 
 			DTFORMATSTRING_datetime)
 		submittedDateTime = datetime.strptime(task["DATETIME_SUBMITTED"], 
