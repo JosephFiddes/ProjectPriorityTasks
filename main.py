@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from QNewItem import QNewItem
 from QExistingItem import QExistingItem
 from taskList import TaskList
+from periodicTaskEditor import PeriodicTaskEditor
 import sys
 
 class Window(QMainWindow):
@@ -34,6 +35,10 @@ class Window(QMainWindow):
 		for index, task in taskList.tasks.iterrows():
 			self.existingTasksLayout.addWidget(
 				QExistingItem(self, index, task))
+
+	def openPeriodicTaskEditor(self):
+		self.periodicTaskEditorWindow = PeriodicTaskEditor(self)
+		self.periodicTaskEditorWindow.show()
 
 	# Credit Blaa_Thor on stack exchange
 	# https://stackoverflow.com/a/25330164
