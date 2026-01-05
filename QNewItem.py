@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import *
 from datetime import datetime
+from DTFormatStrings import *
 
 class QNewItem(QWidget):
 	def __init__(self, window):
@@ -20,9 +21,11 @@ class QNewItem(QWidget):
 		self.priorityEdit = QSpinBox()
 		self.submitButton = QPushButton("Submit")
 		self.refreshButton = QPushButton("Refresh")
+		self.openPeriodicTaskEditorButton = QPushButton("Open Periodic Task Editor")
 
 		self.submitButton.clicked.connect(self.submit)
 		self.refreshButton.clicked.connect(self.refresh)
+		self.openPeriodicTaskEditorButton.clicked.connect(window.openPeriodicTaskEditor)
 
 		# Define Layout
 		layout = QVBoxLayout()
@@ -44,13 +47,11 @@ class QNewItem(QWidget):
 
 		layout.addWidget(self.submitButton)
 		layout.addWidget(self.refreshButton)
+		layout.addWidget(self.openPeriodicTaskEditorButton)
 
 		self.setLayout(layout)
 
 	def submit(self):
-		DTFORMATSTRING_QDateTime = "yyyy-MM-dd hh:mm"
-		DTFORMATSTRING_datetime = "%Y-%m-%d %H:%M"
-
 		hasDueDate = "N"
 		if self.hasDueDateEdit.isChecked():
 			hasDueDate = "Y"
@@ -58,6 +59,7 @@ class QNewItem(QWidget):
 		priority = str(self.priorityEdit.value())
 		newTask = {
 			"TITLE": [str(self.titleEdit.text())],
+			"IS_PERIODIC": ["N"],
 			"HAS_DUE_DATE": [hasDueDate],
 			"DATETIME_DUE": [str(self.dueDateEdit.dateTime()
 							.toString(DTFORMATSTRING_QDateTime))],
